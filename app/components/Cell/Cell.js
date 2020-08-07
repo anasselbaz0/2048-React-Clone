@@ -21,7 +21,7 @@ const styles = {
     fontSize: '2rem',
   },
   v0: {
-    border: '1px dotted gray'
+    backgroundColor: '#b6b6b6'
   },
   v2: {
     backgroundColor: '#cb7c7c'

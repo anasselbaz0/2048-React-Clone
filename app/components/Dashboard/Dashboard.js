@@ -17,7 +17,11 @@ const styles = {
   },
   button: {
     backgroundColor: '#ffe92f',
-    padding: '5px 1rem'
+    padding: '1rem 2rem',
+    color: '#747474',
+    fontSize: '1rem',
+    fontWeight: 800,
+    letterSpacing: '2px'
   }
 }
 
