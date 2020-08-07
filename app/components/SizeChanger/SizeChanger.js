@@ -25,7 +25,6 @@ class SizeChanger extends Component {
       <ButtonGroup color="primary" aria-label="outlined primary button group" className={classes.sizeChanger}>
         <Button>3x3</Button>
         <Button>4x4</Button>
-        <Button>5x5</Button>
       </ButtonGroup>
     );
   }

@@ -15,8 +15,9 @@ const styles = {
     height: '100%',
     width: '100%',
   },
-  row: {
-    height: 'height'
+  tableData: {
+    width: '25%',
+    height: '25%',
   }
 }
 
@@ -35,14 +36,13 @@ class Grid extends Component {
 
             {
               this.props.gridValue.map(row => (
-                <tr className={classes.row}>
-                  <td><Cell value={row[0]}/></td>
-                  <td><Cell value={row[1]}/></td>
-                  <td><Cell value={row[2]}/></td>
+                <tr>
+                  {row.map(cell => (
+                    <td className={classes.tableData}><Cell value={cell}/></td>
+                  ))}
                 </tr>
               ))
             }
-
 
           </tbody>
         </table>

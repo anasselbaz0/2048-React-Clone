@@ -7,12 +7,13 @@ const styles = {
   cellContainer: {
     height: '100%',
     padding: '2px',
-    cursor: 'cell'
+    cursor: 'cell',
+    display: 'flex'
   },
   cell: {
     color: '#fff',
     borderRadius: '5px',
-    width: '100%',
+    flex: '1',
     height: '100%',
     display: 'flex',
     justifyContent: 'center',

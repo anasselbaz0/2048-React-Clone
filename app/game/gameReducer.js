@@ -1,13 +1,11 @@
-import { SET_GRID_SIZE } from './gameActions';
+import { RESET_GRID, SET_GRID_SIZE } from './gameActions';
+import { resetGrid } from './gameFunctions';
 
-const initialGridValue = [
-  [0,0,8],
-  [2,2,4],
-  [0,2,0]
-];
+const initialSize = 4;
+const initialGridValue = resetGrid(initialSize);
 
 const initialState = {
-  gridSize: 3,
+  gridSize: initialSize,
   gridValue: initialGridValue,
 };
 
@@ -17,6 +15,12 @@ export default function demandsReducer(state = initialState, action) {
       return {
         ...state,
         gridSize: action.payload,
+      };
+    }
+    case RESET_GRID: {
+      return {
+        ...state,
+        gridValue: resetGrid(state.gridSize),
       };
     }
     default: {
