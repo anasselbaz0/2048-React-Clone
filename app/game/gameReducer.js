@@ -1,12 +1,14 @@
 import { RESET_GRID, SET_GRID_SIZE, SET_SIZE } from './gameActions';
 import { resetGrid } from './gameFunctions';
 
-const initialSize = 4;
+const initialSize = 3;
 const initialGridValue = resetGrid(initialSize);
+const initialScore = 0;
 
 const initialState = {
   gridSize: initialSize,
   gridValue: initialGridValue,
+  score: initialScore,
 };
 
 export default function demandsReducer(state = initialState, action) {

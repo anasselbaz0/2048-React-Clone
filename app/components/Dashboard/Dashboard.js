@@ -3,15 +3,16 @@ import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import { RESET_GRID, resetGrid } from '../../game/gameActions';
+import SizeChanger from '../SizeChanger/SizeChanger';
 
 
 const styles = {
   dashboard: {
-    width: '80%',
+    // width: '80%',
     maxWidth: '700px',
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
-    marginTop: '2rem',
     color: '3f51b5aa',
     padding: '10px',
   },
@@ -21,7 +22,8 @@ const styles = {
     color: '#747474',
     fontSize: '1rem',
     fontWeight: 800,
-    letterSpacing: '2px'
+    letterSpacing: '2px',
+    margin: '2rem',
   }
 }
 
@@ -38,6 +40,7 @@ class Dashboard extends Component {
         <Button className={classes.button} onClick={this.reset}>
           new game
         </Button>
+        <SizeChanger/>
       </div>
     );
   }

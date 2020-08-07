@@ -1,22 +1,13 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import Grid from '../../components/Grid/Grid';
-import SizeChanger from '../../components/SizeChanger/SizeChanger';
 import Dashboard from '../../components/Dashboard/Dashboard';
-
-function mapStateToProps(state) {
-  return {};
-}
-
-const styles = {
-
-}
+import Scorer from '../../components/Scorer/Scorer';
 
 class HomePage extends Component {
   render() {
     return (
       <React.Fragment>
-        <SizeChanger/>
+        <Scorer/>
         <Grid/>
         <Dashboard/>
       </React.Fragment>
