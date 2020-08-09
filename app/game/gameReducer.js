@@ -1,4 +1,4 @@
-import { RESET_GRID, SET_SIZE, SET_VALUE } from './gameActions';
+import { ADD_SCORE, RESET_GRID, SET_SIZE, SET_VALUE } from './gameActions';
 import { resetGrid } from './gameFunctions';
 
 const initialSize = 4;
@@ -30,6 +30,12 @@ export default function demandsReducer(state = initialState, action) {
       return {
         ...state,
         gridValue: action.payload,
+      };
+    }
+    case ADD_SCORE: {
+      return {
+        ...state,
+        score: state.score + action.payload,
       };
     }
     default: {
