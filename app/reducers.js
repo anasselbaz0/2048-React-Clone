@@ -8,11 +8,14 @@ import { connectRouter } from 'connected-react-router';
 import history from 'utils/history';
 import globalReducer from 'containers/App/reducer';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
+import gameReducer from './game/gameReducer';
 
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
  */
-export default function createReducer(injectedReducers = {}) {
+export default function createReducer(injectedReducers = {
+  game: gameReducer,
+}) {
   const rootReducer = combineReducers({
     global: globalReducer,
     language: languageProviderReducer,

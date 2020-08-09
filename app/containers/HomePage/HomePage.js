@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
-function mapStateToProps(state) {
-  return {};
-}
+import Grid from '../../components/Grid/Grid';
+import Dashboard from '../../components/Dashboard/Dashboard';
+import Scorer from '../../components/Scorer/Scorer';
+import { swipe } from '../../game/gameFunctions';
+import { RIGHT } from '../../game/gameActions';
 
 class HomePage extends Component {
+
+  constructor(props) {
+    super(props);
+
+  }
+
   render() {
     return (
-      <div>
-        HomePage
-      </div>
+      <React.Fragment>
+        <Scorer/>
+        <Grid/>
+        <Dashboard/>
+      </React.Fragment>
     );
   }
 }
 
-export default connect(
-  mapStateToProps,
-)(HomePage);
+export default (HomePage);
