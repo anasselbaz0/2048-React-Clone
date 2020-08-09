@@ -1,5 +1,12 @@
 import { DOWN, LEFT, RIGHT, UP } from './gameActions';
 
+class SwipeOperation {
+  constructor(gridValue, scoreToAdd) {
+    this.gridValue = gridValue;
+    this.scoreToAdd = scoreToAdd;
+  }
+}
+
 export function resetGrid(gridSize) {
   let newGrid = [];
   const x1 = Math.floor(Math.random() * (gridSize));
@@ -41,7 +48,8 @@ function rotateMatrix(matrix, numberOfRotations = 1) {
   return matrix;
 }
 
-function add2Numbers(gridValue, gridSize) {
+function add2Numbers(gridValue) {
+  const gridSize = gridValue.length;
   let x1 = 0, y1 = 0;
   do {
     x1 = Math.floor(Math.random() * (gridSize));
@@ -52,48 +60,52 @@ function add2Numbers(gridValue, gridSize) {
 }
 
 export function swipe(gridValue, direction) {
-  let newGridValue = [];
+  let swipeOperation = new SwipeOperation([], 0);
   switch (direction) {
     case LEFT:
       gridValue = rotateMatrix(gridValue, 2);
-      gridValue = swipeRight(gridValue);
-      newGridValue = rotateMatrix(gridValue, 2);
+      swipeOperation = swipeRight(gridValue);
+      gridValue = rotateMatrix(swipeOperation.gridValue, 2);
+      swipeOperation.gridValue = gridValue;
       break;
     case RIGHT:
-      newGridValue = swipeRight(gridValue);
+      swipeOperation = swipeRight(gridValue);
       break;
     case UP:
       gridValue = rotateMatrix(gridValue, 1);
-      gridValue = swipeRight(gridValue);
-      newGridValue = rotateMatrix(gridValue, 3);
+      swipeOperation = swipeRight(gridValue);
+      gridValue = rotateMatrix(swipeOperation.gridValue, 3);
+      swipeOperation.gridValue = gridValue;
       break;
     case DOWN:
       gridValue = rotateMatrix(gridValue, 3);
-      gridValue = swipeRight(gridValue);
-      newGridValue = rotateMatrix(gridValue, 1);
+      swipeOperation = swipeRight(gridValue);
+      gridValue = rotateMatrix(swipeOperation.gridValue, 1);
+      swipeOperation.gridValue = gridValue;
       break;
     // TODO : Toast message: press an arrow
     default:
       console.log('press arrow');
   }
-  add2Numbers(newGridValue, newGridValue.length);
-  return newGridValue;
+  add2Numbers(swipeOperation.gridValue);
+  return swipeOperation;
 }
 
 function swipeRight(gridValue) {
-  let newGridValue = [];
+  let swipeOperation = new SwipeOperation([], 0);
   const gridSize = gridValue.length;
   gridValue.map(row => {
     let outputRow = [];
     let rowWithoutGaps = row.filter(n => n !== 0);
     if (rowWithoutGaps.length === 0) {
-      newGridValue.push(new Array(gridSize).fill(0));
+      swipeOperation.gridValue.push(new Array(gridSize).fill(0));
     } else if (rowWithoutGaps.length === 1) {
-      newGridValue.push(new Array(gridSize).fill(0));
-      newGridValue[newGridValue.length - 1][gridSize - 1] = rowWithoutGaps[0];
+      swipeOperation.gridValue.push(new Array(gridSize).fill(0));
+      swipeOperation.gridValue[swipeOperation.gridValue.length - 1][gridSize - 1] = rowWithoutGaps[0];
     } else {
       while (rowWithoutGaps.length > 0) {
         if (rowWithoutGaps[0] === rowWithoutGaps[1]) {
+          swipeOperation.scoreToAdd += rowWithoutGaps[0] + rowWithoutGaps[1];
           outputRow.push(rowWithoutGaps[0] + rowWithoutGaps[1]);
           rowWithoutGaps.shift();
           rowWithoutGaps.shift();
@@ -109,8 +121,8 @@ function swipeRight(gridValue) {
           outputRow.push(0);
         }
       }
-      newGridValue.push(outputRow.reverse());
+      swipeOperation.gridValue.push(outputRow.reverse());
     }
   });
-  return newGridValue;
+  return swipeOperation;
 }

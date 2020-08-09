@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Cell from '../Cell/Cell';
 import { swipe } from '../../game/gameFunctions';
-import { DOWN, LEFT, RIGHT, setValue, UP } from '../../game/gameActions';
+import { addScore, DOWN, LEFT, RIGHT, setValue, UP } from '../../game/gameActions';
 
 const styles = {
   grid: {
@@ -30,27 +30,37 @@ class Grid extends Component {
     document.addEventListener('keydown', (e) => {
       switch (e.code) {
         case "ArrowRight": {
-          const newGridValue = swipe(this.props.gridValue, RIGHT);
-          this.props.setValue(newGridValue);
+          const swipeOperation = swipe(this.props.gridValue, RIGHT);
+          this.props.setValue(swipeOperation.gridValue);
+          this.addScoreToGame(swipeOperation.scoreToAdd);
           break;
         }
         case "ArrowLeft": {
-          const newGridValue = swipe(this.props.gridValue, LEFT);
-          this.props.setValue(newGridValue);
+          const swipeOperation = swipe(this.props.gridValue, LEFT);
+          this.props.setValue(swipeOperation.gridValue);
+          this.addScoreToGame(swipeOperation.scoreToAdd);
           break;
         }
         case "ArrowUp": {
-          const newGridValue = swipe(this.props.gridValue, UP);
-          this.props.setValue(newGridValue);
+          const swipeOperation = swipe(this.props.gridValue, UP);
+          this.props.setValue(swipeOperation.gridValue);
+          this.addScoreToGame(swipeOperation.scoreToAdd);
           break;
         }
         case "ArrowDown": {
-          const newGridValue = swipe(this.props.gridValue, DOWN);
-          this.props.setValue(newGridValue);
+          const swipeOperation = swipe(this.props.gridValue, DOWN);
+          this.props.setValue(swipeOperation.gridValue);
+          this.addScoreToGame(swipeOperation.scoreToAdd);
           break;
         }
       }
     });
+  }
+
+  addScoreToGame(scoreToAdd) {
+    if (scoreToAdd > 0) {
+      this.props.addScore(scoreToAdd);
+    }
   }
 
   render() {
@@ -87,6 +97,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setValue: (value) => dispatch(setValue(value)),
+    addScore: (score) => dispatch(addScore(score)),
   };
 };
 
