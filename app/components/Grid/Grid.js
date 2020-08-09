@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Cell from '../Cell/Cell';
+import { swipe } from '../../game/gameFunctions';
+import { LEFT, RIGHT, setValue } from '../../game/gameActions';
 
 const styles = {
   grid: {
@@ -18,13 +20,27 @@ const styles = {
   tableData: {
     width: '25%',
     height: '25%',
-  }
-}
+  },
+};
 
 class Grid extends Component {
 
   constructor(props) {
     super(props);
+    document.addEventListener('keydown', (e) => {
+      switch (e.code) {
+        case "ArrowRight": {
+          const newGridValue = swipe(this.props.gridValue, RIGHT);
+          this.props.setValue(newGridValue);
+          break;
+        }
+        case "ArrowLeft": {
+          const newGridValue = swipe(this.props.gridValue, LEFT);
+          this.props.setValue(newGridValue);
+          break;
+        }
+      }
+    });
   }
 
   render() {
@@ -34,15 +50,15 @@ class Grid extends Component {
         <table className={classes.fullHW}>
           <tbody>
 
-            {
-              this.props.gridValue.map(row => (
-                <tr>
-                  {row.map(cell => (
-                    <td className={classes.tableData}><Cell value={cell}/></td>
-                  ))}
-                </tr>
-              ))
-            }
+          {
+            this.props.gridValue.map(row => (
+              <tr>
+                {row.map(cell => (
+                  <td className={classes.tableData}><Cell value={cell}/></td>
+                ))}
+              </tr>
+            ))
+          }
 
           </tbody>
         </table>
@@ -55,7 +71,13 @@ const mapStateToProps = (state) => {
   return {
     gridSize: state.game.gridSize,
     gridValue: state.game.gridValue,
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps)(withStyles(styles)(Grid));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setValue: (value) => dispatch(setValue(value)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Grid));
