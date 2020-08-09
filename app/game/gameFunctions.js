@@ -1,4 +1,4 @@
-import { LEFT, RIGHT } from './gameActions';
+import { DOWN, LEFT, RIGHT, UP } from './gameActions';
 
 export function resetGrid(gridSize) {
   let newGrid = [];
@@ -61,6 +61,16 @@ export function swipe(gridValue, direction) {
       break;
     case RIGHT:
       newGridValue = swipeRight(gridValue);
+      break;
+    case UP:
+      gridValue = rotateMatrix(gridValue, 1);
+      gridValue = swipeRight(gridValue);
+      newGridValue = rotateMatrix(gridValue, 3);
+      break;
+    case DOWN:
+      gridValue = rotateMatrix(gridValue, 3);
+      gridValue = swipeRight(gridValue);
+      newGridValue = rotateMatrix(gridValue, 1);
       break;
     // TODO : Toast message: press an arrow
     default:

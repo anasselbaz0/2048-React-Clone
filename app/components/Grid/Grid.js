@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Cell from '../Cell/Cell';
 import { swipe } from '../../game/gameFunctions';
-import { LEFT, RIGHT, setValue } from '../../game/gameActions';
+import { DOWN, LEFT, RIGHT, setValue, UP } from '../../game/gameActions';
 
 const styles = {
   grid: {
@@ -36,6 +36,16 @@ class Grid extends Component {
         }
         case "ArrowLeft": {
           const newGridValue = swipe(this.props.gridValue, LEFT);
+          this.props.setValue(newGridValue);
+          break;
+        }
+        case "ArrowUp": {
+          const newGridValue = swipe(this.props.gridValue, UP);
+          this.props.setValue(newGridValue);
+          break;
+        }
+        case "ArrowDown": {
+          const newGridValue = swipe(this.props.gridValue, DOWN);
           this.props.setValue(newGridValue);
           break;
         }
