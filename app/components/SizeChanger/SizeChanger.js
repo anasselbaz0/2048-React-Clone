@@ -7,10 +7,8 @@ import { setSize } from '../../game/gameActions';
 
 const styles = {
   sizeChanger: {
-    width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    marginBottom: '2rem',
   },
 }
 

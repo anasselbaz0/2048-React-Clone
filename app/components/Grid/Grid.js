@@ -53,6 +53,10 @@ class Grid extends Component {
           this.addScoreToGame(swipeOperation.scoreToAdd);
           break;
         }
+        default: {
+          console.log('press arrow')
+          break;
+        }
       }
     });
   }

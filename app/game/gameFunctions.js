@@ -83,9 +83,6 @@ export function swipe(gridValue, direction) {
       gridValue = rotateMatrix(swipeOperation.gridValue, 1);
       swipeOperation.gridValue = gridValue;
       break;
-    // TODO : Toast message: press an arrow
-    default:
-      console.log('press arrow');
   }
   add2Numbers(swipeOperation.gridValue);
   return swipeOperation;

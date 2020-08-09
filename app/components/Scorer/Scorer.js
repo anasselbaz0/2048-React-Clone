@@ -4,21 +4,10 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 
 const styles = {
-  scorer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: '10px',
-    color: '#555555',
-    fontSize: '1rem',
-    fontWeight: 800,
-    letterSpacing: '2px',
-    margin: '2rem'
-  },
   score: {
     padding: '10px 30px',
     backgroundColor: '#ffe565',
-    marginLeft: '10px'
+    textAlign: 'center',
   }
 }
 
@@ -30,11 +19,7 @@ class Scorer extends Component {
 
   render() {
     const { classes } = this.props;
-    return (
-      <div className={classes.scorer}>
-        SCORE : <span className={classes.score}> {this.props.score} </span>
-      </div>
-    );
+    return <div className={classes.score}>SCORE <br/> {this.props.score} </div>;
   }
 
 }

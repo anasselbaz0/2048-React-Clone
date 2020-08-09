@@ -18,7 +18,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    fontSize: '2rem',
+    fontSize: '1.7rem',
   },
   v0: {
     backgroundColor: '#b6b6b6'

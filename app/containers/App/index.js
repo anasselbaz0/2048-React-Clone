@@ -11,7 +11,8 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    fontFamily: 'Squada One'
   },
 };
 

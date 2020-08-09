@@ -16,15 +16,7 @@ const styles = {
     color: '3f51b5aa',
     padding: '10px',
   },
-  button: {
-    backgroundColor: '#ffe92f',
-    padding: '1rem 2rem',
-    color: '#747474',
-    fontSize: '1rem',
-    fontWeight: 800,
-    letterSpacing: '2px',
-    margin: '2rem',
-  }
+
 }
 
 class Dashboard extends Component {
@@ -37,10 +29,8 @@ class Dashboard extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.dashboard}>
-        <Button className={classes.button} onClick={this.reset}>
-          new game
-        </Button>
-        <SizeChanger/>
+
+
       </div>
     );
   }
