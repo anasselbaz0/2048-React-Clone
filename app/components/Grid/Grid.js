@@ -4,6 +4,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Cell from '../Cell/Cell';
 import { swipe } from '../../game/gameFunctions';
 import { addScore, DOWN, LEFT, RIGHT, setValue, UP } from '../../game/gameActions';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const styles = {
   grid: {
@@ -54,7 +56,14 @@ class Grid extends Component {
           break;
         }
         default: {
-          console.log('press arrow')
+          toast.info('Press an Arrow !', {
+            position: "bottom-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
           break;
         }
       }
@@ -86,6 +95,17 @@ class Grid extends Component {
 
           </tbody>
         </table>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </div>
     );
   }

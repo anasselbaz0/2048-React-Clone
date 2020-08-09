@@ -17,7 +17,8 @@ const styles = {
     alignItems: 'flex-end',
   },
   title: {
-    fontSize: '3rem'
+    fontSize: '3rem',
+    lineHeight: 'normal'
   },
   button: {
     backgroundColor: '#ffe565',

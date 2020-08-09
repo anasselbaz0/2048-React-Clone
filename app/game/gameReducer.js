@@ -17,6 +17,7 @@ export default function demandsReducer(state = initialState, action) {
       return {
         ...state,
         gridValue: resetGrid(state.gridSize),
+        score: 0,
       };
     }
     case SET_SIZE: {

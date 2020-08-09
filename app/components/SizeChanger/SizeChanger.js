@@ -9,6 +9,7 @@ const styles = {
   sizeChanger: {
     display: 'flex',
     justifyContent: 'center',
+    height: '100%'
   },
 }
 
