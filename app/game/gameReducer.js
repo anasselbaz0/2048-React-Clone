@@ -1,4 +1,4 @@
-import { ADD_SCORE, RESET_GRID, SET_SIZE, SET_VALUE } from './gameActions';
+import { ADD_SCORE, GAME_OVER, RESET_GRID, SET_SIZE, SET_VALUE } from './gameActions';
 import { resetGrid } from './gameFunctions';
 
 const initialSize = 4;
@@ -9,6 +9,7 @@ const initialState = {
   gridSize: initialSize,
   gridValue: initialGridValue,
   score: initialScore,
+  gameOver: false,
 };
 
 export default function demandsReducer(state = initialState, action) {
@@ -18,6 +19,13 @@ export default function demandsReducer(state = initialState, action) {
         ...state,
         gridValue: resetGrid(state.gridSize),
         score: 0,
+        gameOver: false,
+      };
+    }
+    case GAME_OVER: {
+      return {
+        ...state,
+        gameOver: true,
       };
     }
     case SET_SIZE: {

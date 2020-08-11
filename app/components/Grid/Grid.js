@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Cell from '../Cell/Cell';
-import { swipe } from '../../game/gameFunctions';
-import { addScore, DOWN, LEFT, RIGHT, setValue, UP } from '../../game/gameActions';
+import { swipe, SwipeOperation } from '../../game/gameFunctions';
+import { addScore, DOWN, gameOver, LEFT, RIGHT, setValue, UP } from '../../game/gameActions';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -30,34 +30,27 @@ class Grid extends Component {
   constructor(props) {
     super(props);
     document.addEventListener('keydown', (e) => {
+      let swipeOperation = new SwipeOperation();
       switch (e.code) {
-        case "ArrowRight": {
-          const swipeOperation = swipe(this.props.gridValue, RIGHT);
-          this.props.setValue(swipeOperation.gridValue);
-          this.addScoreToGame(swipeOperation.scoreToAdd);
+        case 'ArrowRight': {
+          swipeOperation = swipe(this.props.gridValue, RIGHT);
           break;
         }
-        case "ArrowLeft": {
-          const swipeOperation = swipe(this.props.gridValue, LEFT);
-          this.props.setValue(swipeOperation.gridValue);
-          this.addScoreToGame(swipeOperation.scoreToAdd);
+        case 'ArrowLeft': {
+          swipeOperation = swipe(this.props.gridValue, LEFT);
           break;
         }
-        case "ArrowUp": {
-          const swipeOperation = swipe(this.props.gridValue, UP);
-          this.props.setValue(swipeOperation.gridValue);
-          this.addScoreToGame(swipeOperation.scoreToAdd);
+        case 'ArrowUp': {
+          swipeOperation = swipe(this.props.gridValue, UP);
           break;
         }
-        case "ArrowDown": {
-          const swipeOperation = swipe(this.props.gridValue, DOWN);
-          this.props.setValue(swipeOperation.gridValue);
-          this.addScoreToGame(swipeOperation.scoreToAdd);
+        case 'ArrowDown': {
+          swipeOperation = swipe(this.props.gridValue, DOWN);
           break;
         }
         default: {
           toast.info('Press an Arrow !', {
-            position: "bottom-right",
+            position: 'bottom-right',
             autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -67,6 +60,17 @@ class Grid extends Component {
           break;
         }
       }
+      if (swipeOperation.gameOver) {
+        toast.error('GAME OVER !', {
+          position: 'bottom-right',
+          closeOnClick: true,
+          draggable: true,
+        });
+        this.props.setGameOver();
+      }
+      this.props.setValue(swipeOperation.gridValue);
+      this.addScoreToGame(swipeOperation.scoreToAdd);
+
     });
   }
 
@@ -115,6 +119,7 @@ const mapStateToProps = (state) => {
   return {
     gridSize: state.game.gridSize,
     gridValue: state.game.gridValue,
+    gameOver: state.game.gameOver,
   };
 };
 
@@ -122,6 +127,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setValue: (value) => dispatch(setValue(value)),
     addScore: (score) => dispatch(addScore(score)),
+    setGameOver: () => dispatch(gameOver()),
   };
 };
 

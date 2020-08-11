@@ -1,10 +1,26 @@
 import { DOWN, LEFT, RIGHT, UP } from './gameActions';
 
-class SwipeOperation {
+export class SwipeOperation {
   constructor(gridValue, scoreToAdd) {
     this.gridValue = gridValue;
     this.scoreToAdd = scoreToAdd;
+    this.gameOver = false;
   }
+}
+
+// TODO: fix the function
+function isGameOver(gridValue) {
+  for (let i = 1; i < gridValue.length - 1; i++) {
+    for (let j = 1; j < gridValue.length - 1; j++) {
+      if ((gridValue[i][j] === gridValue[i + 1][j])
+        || (gridValue[i][j] === gridValue[i - 1][j])
+        || (gridValue[i][j] === gridValue[i][j + 1])
+        || (gridValue[i][j] === gridValue[i][j - 1])) {
+        return false;
+      }
+    }
+  }
+  return false;
 }
 
 export function resetGrid(gridSize) {
@@ -22,7 +38,7 @@ export function resetGrid(gridSize) {
       // if ((i === x1 && j === y1) || (i === x1 && j === y2)) {
       if ((i === x1 && j === y1) || (i === x2 && j === y2)) {
         const r = Math.floor(Math.random() * 10);
-        r > 4 ? row.push(2) : row.push(4);
+        r > 3 ? row.push(2) : row.push(4);
       } else {
         row.push(0);
       }
@@ -49,14 +65,16 @@ function rotateMatrix(matrix, numberOfRotations = 1) {
 }
 
 function add2Numbers(gridValue) {
-  const gridSize = gridValue.length;
-  let x1 = 0, y1 = 0;
-  do {
-    x1 = Math.floor(Math.random() * (gridSize));
-    y1 = Math.floor(Math.random() * (gridSize));
-  } while (gridValue[x1][y1] !== 0);
-  const r = Math.floor(Math.random() * 10);
-  r > 4 ? gridValue[x1][y1] = 2 : gridValue[x1][y1] = 4;
+  if (gridValue.some(row => row.includes(0))) {
+    const gridSize = gridValue.length;
+    let x1 = 0, y1 = 0;
+    do {
+      x1 = Math.floor(Math.random() * (gridSize));
+      y1 = Math.floor(Math.random() * (gridSize));
+    } while (gridValue[x1][y1] !== 0);
+    const r = Math.floor(Math.random() * 10);
+    r > 3 ? gridValue[x1][y1] = 2 : gridValue[x1][y1] = 4;
+  }
 }
 
 export function swipe(gridValue, direction) {
@@ -85,6 +103,7 @@ export function swipe(gridValue, direction) {
       break;
   }
   add2Numbers(swipeOperation.gridValue);
+  swipeOperation.gameOver = isGameOver(swipeOperation.gridValue);
   return swipeOperation;
 }
 
